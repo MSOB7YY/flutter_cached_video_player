@@ -79,12 +79,12 @@ final class CachedVideoPlayer {
 
         DataSource.Factory dataSourceFactory;
         if (isHTTP(uri)) {
-            CacheDataSourceFactory cacheDataSourceFactory =
-                    new CacheDataSourceFactory(
-                            context,
-                            // TODO: need a way to set these programmatically. Maybe fork VideoPlayerPlatformInterface
-                            1024 * 1024 * 1024,
-                            1024 * 1024 * 100);
+            CacheDataSourceFactory cacheDataSourceFactory = new CacheDataSourceFactory(
+                    context,
+                    // TODO: need a way to set these programmatically. Maybe fork
+                    // VideoPlayerPlatformInterface
+                    1024 * 1024 * 1024,
+                    1024 * 1024 * 100);
             if (httpHeaders != null && !httpHeaders.isEmpty()) {
                 cacheDataSourceFactory.setHeaders(httpHeaders);
             }
@@ -223,7 +223,8 @@ final class CachedVideoPlayer {
         Map<String, Object> event = new HashMap<>();
         event.put("event", "bufferingUpdate");
         List<? extends Number> range = Arrays.asList(0, exoPlayer.getBufferedPosition());
-        // iOS supports a list of buffered ranges, so here is a list with a single range.
+        // iOS supports a list of buffered ranges, so here is a list with a single
+        // range.
         event.put("values", Collections.singletonList(range));
         eventSink.success(event);
     }
@@ -234,11 +235,11 @@ final class CachedVideoPlayer {
     }
 
     void play() {
-        exoPlayer.setPlayWhenReady(true);
+        exoPlayer.play();
     }
 
     void pause() {
-        exoPlayer.setPlayWhenReady(false);
+        exoPlayer.pause();
     }
 
     void setLooping(boolean value) {
@@ -251,7 +252,8 @@ final class CachedVideoPlayer {
     }
 
     void setPlaybackSpeed(double value) {
-        // We do not need to consider pitch and skipSilence for now as we do not handle them and
+        // We do not need to consider pitch and skipSilence for now as we do not handle
+        // them and
         // therefore never diverge from the default values.
         final PlaybackParameters playbackParameters = new PlaybackParameters(((float) value));
 
